@@ -4,8 +4,9 @@
     "keywords": ["laravel", "artisan", "backup", "mysql"],
     "authors": [
         {
-            "name": "monashee",
-            "email": "derek@marcinyshyn.com"
+            "name": "Derek Marcinyshyn",
+            "email": "derek@marcinyshyn.com",
+            "role": "Developer"
         }
     ],
     "require": {
