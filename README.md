@@ -1,5 +1,7 @@
 # Monashee Backup
 
+[![Build Status](https://travis-ci.org/DerekMarcinyshyn/monashee-backup.svg?branch=master)](https://travis-ci.org/DerekMarcinyshyn/monashee-backup)
+
 A simple Laravel artisan utility to backup MySQL database to AWS S3 bucket.
 
 ## Configuration
