@@ -1,0 +1,26 @@
+{
+    "name": "monashee/backup",
+    "description": "Laravel MySQL backup utility and upload to AWS S3.",
+    "keywords": ["laravel", "artisan", "backup", "mysql"],
+    "authors": [
+        {
+            "name": "monashee",
+            "email": "derek@marcinyshyn.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "laravel/framework": "4.2.*",
+        "phpspec/phpspec": "~2.0",
+        "aws/aws-sdk-php-laravel": "1.*",
+        "league/flysystem": "0.5.*"
+    },
+    "autoload": {
+        "classmap": [],
+        "psr-0": {
+            "Monashee\\Backup\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
