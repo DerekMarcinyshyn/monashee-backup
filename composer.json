@@ -2,6 +2,7 @@
     "name": "monashee/backup",
     "description": "Laravel MySQL backup utility and upload to AWS S3.",
     "keywords": ["laravel", "artisan", "backup", "mysql"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Derek Marcinyshyn",
