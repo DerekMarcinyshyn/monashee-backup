@@ -7,6 +7,7 @@
  */
 
 use Illuminate\Console\Command;
+use Illuminate\Events\Dispatcher;
 use Monashee\Backup\Database;
 use Monashee\Backup\Dump;
 use Monashee\Backup\UploadS3;
@@ -29,6 +30,11 @@ class MonasheeBackup extends Command {
     protected $database;
 
     /**
+     * @var Dispatcher
+     */
+    protected $event;
+
+    /**
      * The console command name.
      *
      * @var string
@@ -47,8 +53,9 @@ class MonasheeBackup extends Command {
      *
      * @return void
      */
-    public function __construct(Database $database, Dump $dump, UploadS3 $uploadS3)
+    public function __construct(Dispatcher $event, Database $database, Dump $dump, UploadS3 $uploadS3)
     {
+        $this->event = $event;
         $this->database = $database;
         $this->dump = $dump;
         $this->uploadS3 = $uploadS3;
@@ -63,15 +70,22 @@ class MonasheeBackup extends Command {
      */
     public function fire()
     {
-        $this->info('Monashee get databases...');
-        $databases = $this->database->getDatabases();
+        try {
+            $this->info('Monashee get databases...');
+            $databases = $this->database->getDatabases();
 
-        $this->info('Starting dumping databases...');
-        $dump = $this->dump->backup($databases);
+            $this->info('Starting dumping databases...');
+            $dump = $this->dump->backup($databases);
 
-        if ($dump) {
-            $this->info('Start uploading to AWS S3...');
-            $uploadS3 = $this->uploadS3->uploadToS3($databases);
+            if ($dump) {
+                $this->info('Start uploading to AWS S3...');
+                $uploadS3 = $this->uploadS3->uploadToS3($databases);
+            }
+
+            $this->event->fire('MonasheeBackupSuccess', compact('databases'));
+
+        } catch (\Exception $e) {
+            $this->event->fire('MonasheeBackupFail', $e->getTraceAsString());
         }
     }
 } 

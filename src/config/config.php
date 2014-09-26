@@ -9,7 +9,5 @@ return [
     'BACKUP_AWS_SECRET'     => getenv('BACKUP_AWS_SECRET'),
     'BACKUP_S3_BUCKET'      => getenv('BACKUP_S3_BUCKET'),
     'BACKUP_S3_REGION'      => getenv('BACKUP_S3_REGION'),
-    'BACKUP_EMAIL'          => getenv('BACKUP_EMAIL'),
-    'BACKUP_SEND_EMAILS'    => getenv('BACKUP_SEND_EMAILS'),
     'BACKUP_STORAGE_PATH'   => getenv('BACKUP_STORAGE_PATH')
 ];

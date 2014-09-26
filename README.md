@@ -4,14 +4,41 @@
 
 A simple Laravel artisan utility to backup MySQL database to AWS S3 bucket.
 
-## Configuration
+I use it by creating a backup mysql user and attaching that user to all of the databases I want to backup. In a multi database environment it makes it easier to only select those databases that are in production.
 
-Add this line to the providers array in your ```app/config/app.php``` file:
+It saves to a temp folder then after uploading to AWS S3 it removes the $database.sql.gz files.
+
+### Events
+
+``` MonasheeBackupSuccess ``` fires on completion and passes the $databases array
+
+``` MonasheeBackupFail ``` fires on Exception and passes the $e->getTraceAsString()
+
+
+## Installation
+
+Requires
+
+- PHP 5.4+
+- Laravel 4.2+
+
+Install via Composer by adding the following line to the require block of your composer.json file
+
+```php
+"monashee/backup": "dev-master"
+```
+
+Then run ``` composer update ```
+
+Add this line to the providers array in your ``` app/config/app.php ``` file:
 ```php
 'Monashee\Backup\BackupServiceProvider',
 ```
 
-Create or edit your ```.env.php``` file in your root directory. Copy the config settings and edit the fields.
+
+## Configuration
+
+Create or edit your ``` .env.php ``` file in your root directory. Copy the config settings and edit the fields.
 
 ```php
 <?php
@@ -25,8 +52,6 @@ return [
     'BACKUP_AWS_SECRET'     => 'secret',
     'BACKUP_S3_BUCKET'      => 'bucket',
     'BACKUP_S3_REGION'      => 'us-west-2',
-    'BACKUP_EMAIL'          => 'name@example.com',
-    'BACKUP_SEND_EMAILS'    => true,
     'BACKUP_STORAGE_PATH'   => 'monashee/backup/'
 ];
 ```
