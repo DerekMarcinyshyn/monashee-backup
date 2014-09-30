@@ -65,7 +65,13 @@ class UploadS3
         foreach ($databases as $database)
         {
             echo 'uploading '.$database."...\n";
-            $this->filesystem->put($this->path($database), $storagePath.$database.'-backup.sql.gz');
+
+            $this->client->putObject(array(
+                'Bucket'        => $this->config->get('backup::config')['BACKUP_S3_BUCKET'],
+                'Key'           => $this->path($database),
+                'SourceFile'    => $storagePath.$database.'-backup.sql.gz'
+            ));
+
             echo 'done.'."\n";
         }
 
