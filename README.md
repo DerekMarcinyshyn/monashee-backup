@@ -8,6 +8,8 @@ I use it by creating a backup mysql user and attaching that user to all of the d
 
 It saves to a temp folder then after uploading to AWS S3 it removes the $database.sql.gz files.
 
+It also cleans up the S3 folder by removing daily backups from 2 months ago but leaving the first one of the month.
+
 ### Events
 
 ``` MonasheeBackupSuccess ``` fires on completion and passes the $databases array
